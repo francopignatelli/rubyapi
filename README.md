@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # README
 
 This README would normally document whatever steps are necessary to get the
@@ -23,6 +22,3 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
-=======
-# rubyapi
->>>>>>> 8d6470520254edfe95b6495a4c7628b1231920f9
