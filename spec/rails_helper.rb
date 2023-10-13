@@ -11,12 +11,7 @@ require 'rspec/rails'
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
-    with.test_framework :minitest
-
-    # Keep as many of these lines as are necessary:
-    with.library :active_record
-    with.library :active_model
-    with.library :action_controller
+    with.test_framework :rspec
     with.library :rails
   end
 end
