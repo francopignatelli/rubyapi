@@ -200,6 +200,7 @@ DEPENDENCIES
   debug
   factory_bot_rails (~> 4.0)
   faker (~> 1.9)
+  i18n
   puma (~> 5.0)
   rails (~> 7.0.8)
   rspec-rails (~> 6.0.0)
