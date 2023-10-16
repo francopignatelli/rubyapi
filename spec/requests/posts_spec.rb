@@ -1,4 +1,6 @@
 require 'rails_helper'
+require 'byebug'
+require 'factory_bot_rails'
 
 #TTD: Test driven development
 #Prueba de integracion -> Prueba la app de principio a fin.
@@ -6,35 +8,39 @@ require 'rails_helper'
 RSpec.describe "Posts", type: :request do
     
     #Contexto sin datos en la DB.
-    describe "GET /post" do
-        before { get '/post' }
+    describe "GET /posts" do
+        before { get '/posts' }
 
         it "should return OK" do
             payload = JSON.parse(response.body)
-            expect(payload).not_to be_empty
+            expect(payload).to be_empty
             expect(response).to have_http_status(200)
         end
     end
 
     #Contexto con datos en la DB.
     describe "With data in the DB" do
-        let(:posts) { create_list(:post, 10, published:true) }
-        before { get '/post' }
+    
+        let!(:posts) { create_list(:post, 10) }
+      
+    
         it "should return all the published posts"do
+            get '/posts'
             payload = JSON.parse(response.body)
             expect(payload.size).to eq(posts.size)
             expect(response).to have_http_status(200)
         end
     end
 
-    describe "GET /post/{id}" do
-        let(:posts) { create(:post) }
+    describe "GET /posts/{id}" do
+     
+    let!(:post) { FactoryBot.create(:post) }
 
         it "should return a post"do
-            before { get "/post/#{post.id}" }
+            get "/posts/#{post.id}"
             payload = JSON.parse(response.body)
-            expect(payload).to_not be_empty
-            expect(payload["id"]).to_eq(post.id)
+            expect(payload).to be_empty
+            expect(payload["id"]).to eq(post.id)
             expect(response).to have_http_status(200)
         end
     end

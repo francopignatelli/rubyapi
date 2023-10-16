@@ -3,4 +3,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   get '/health', to: 'health#health'
+
+  #Puedo definir todos los metodos de un CRUD
+  resources :posts, only: [:index, :show]
 end
