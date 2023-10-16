@@ -19,10 +19,8 @@ RSpec.describe "Posts", type: :request do
     end
 
     #Contexto con datos en la DB.
-    describe "With data in the DB" do
-    
-        let!(:posts) { create_list(:post, 10) }
-      
+    describe "With data in the DB" do 
+        let!(:posts) { create_list(:post, 10, published: true) }
     
         it "should return all the published posts"do
             get '/posts'
@@ -33,20 +31,18 @@ RSpec.describe "Posts", type: :request do
     end
 
     describe "GET /posts/{id}" do
-
         let!(:post) { FactoryBot.create(:post) }
 
         it "should return a post"do
             get "/posts/#{post.id}"
             payload = JSON.parse(response.body)
-            expect(payload).to be_empty
+            expect(payload).to_not be_empty
             expect(payload["id"]).to eq(post.id)
             expect(response).to have_http_status(200)
         end
     end
 
     describe "POST /posts" do
-
         let!(:user) { create(:user) }
 
         it "should create a post" do
@@ -63,7 +59,7 @@ RSpec.describe "Posts", type: :request do
             post "/posts", params: req_payload
             payload = JSON.parse(response.body)
             expect(payload).to_not be_empty
-            expect(payload["id"]).to_not be_empty
+            expect(payload["id"]).to_not be_nil
             expect(response).to have_http_status(:created)
         end
 
